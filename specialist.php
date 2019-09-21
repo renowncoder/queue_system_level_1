@@ -1,3 +1,21 @@
+<?php
+
+include 'config.php';
+
+  if (isset($_GET['delete_client'])) {
+      $delete_client_id = $_GET['delete_client'];
+      $delete_client = "DELETE FROM queue WHERE id='$delete_client_id'";
+      $run_delete = mysqli_query($mysqli, $delete_client);
+
+      if ($run_delete) {
+          $msg = 'Client has been successfully deleted!';
+          $msgClass = 'alert-success';
+      } else {
+          $msg = 'Something went wrong, time to check Stack Overflow!';
+          $msgClass = 'alert-success';
+      }
+  }
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -26,31 +44,40 @@
 <body>
 
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">QUEUE INFORMATION</h1>
-    <p class="lead">It's built with default Bootstrap components and utilities with little customization.</p>
+    <h1 class="display-4">SPECIALISTS PAGE</h1>
+    <p class="lead">Here you can view and "complete" client related activity</p>
   </div>
 
   <div class="container">
     <table class="table">
         <thead>
           <tr>
+            <th scope="col">Number</th>
             <th scope="col">Client name</th>
             <th scope="col">Mark as Completed</th>
           </tr>
         </thead>
         <tbody>
+        <?php
+          $i = 0;
+          $get_client = 'SELECT * FROM queue';
+          $run_client = mysqli_query($mysqli, $get_client);
+
+          while ($row_client = mysqli_fetch_array($run_client)) {
+              $client_id = $row_client['id'];
+              $client_name = $row_client['client_name'];
+              ++$i; ?>
           <tr>
-            <td>Mark</td>
-            <td><a href="#">Complete</a></td>
+            <td><?php echo $i; ?></td>
+            <td><?php echo $client_name; ?></td>
+            <td><a href="specialist.php?delete_client=<?php echo $client_id; ?>">Complete</a></td>
           </tr>
-          <tr>
-            <td>Jacob</td>
-            <td><a href="#">Complete</a></td>
-          </tr>
+          <?php
+          } ?> 
         </tbody>
       </table>
       <p class="mt-5 mb-3 text-center">
-        <a href="index.html">Go Back</a>
+        <a href="index.php">Go Back</a>
       </p>
   </div>
 </body>

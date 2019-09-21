@@ -1,6 +1,3 @@
-<?php
-  include 'connection.php';
-?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Queue Registration system</title>
+    <title>Queue Registration system | HOME</title>
 
     <!-- Bootstrap core CSS -->
     <link 
@@ -52,7 +49,7 @@
                         <a 
                         type="button" 
                         class="btn btn-sm btn-outline-secondary" 
-                        href="register.html">View
+                        href="register.php">View
                       </a>
                     </div>
                   </div>
@@ -68,7 +65,7 @@
                       <a 
                         type="button" 
                         class="btn btn-sm btn-outline-secondary" 
-                        href="queue.html">View
+                        href="queue.php">View
                       </a>
                     </div>
                   </div>
@@ -84,7 +81,7 @@
                         <a 
                         type="button" 
                         class="btn btn-sm btn-outline-secondary" 
-                        href="specialist.html">View
+                        href="specialist.php">View
                       </a>
                     </div>
                   </div>
@@ -100,7 +97,7 @@
     <footer class="text-muted">
       <div class="container">
         <p>Queue System in PHP and MySQL</p>
-        <p>Visit my <a href="#">github</a></p>
+        <p>Visit my <a href="https://github.com/dimacellist">github</a></p>
       </div>
     </footer>
 
