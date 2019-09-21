@@ -1,3 +1,22 @@
+<?php
+  include 'connection.php';
+
+  function getClients()
+  {
+      global $mysqli;
+
+      $get_clients = 'SELECT * FROM clients ORDER BY 1 ASC LIMIT 0,1';
+      $run_clients = mysqli_query($mysqli, $get_clients);
+      while ($row_clients = mysqli_fetch_array($run_clients)) {
+          $client_name = $row_clients['name'];
+          echo "<h1 class='card-title pricing-card-title'>$client_name</h1>";
+      }
+  }
+
+      $get_clients = 'SELECT * FROM clients';
+      $run_clients = mysqli_query($mysqli, $get_clients);
+      $count_clients = mysqli_num_rows($run_clients);
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -37,7 +56,7 @@
             <h4 class="my-0 font-weight-normal">Total Waiting</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">10</h1>
+            <h1 class="card-title pricing-card-title"><?php echo $count_clients; ?></h1>
           </div>
         </div>
         <div class="card mb-4 box-shadow">
@@ -45,12 +64,12 @@
             <h4 class="my-0 font-weight-normal">Next in Line</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">Dmitri</h1>
+            <h1 class="card-title pricing-card-title"><?php getClients(); ?></h1>
           </div>
         </div>
       </div>
       <p class="text-center text-muted">
-        <a href="index.html">Go Back</a>
+        <a href="index.php">Go Back</a>
       </p>
     </div>
 

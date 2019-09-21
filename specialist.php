@@ -1,3 +1,21 @@
+<?php
+
+include 'connection.php';
+
+  if (isset($_GET['delete_client'])) {
+      $delete_client_id = $_GET['delete_client'];
+      $delete_client = "DELETE FROM clients WHERE id='$delete_client_id'";
+      $run_delete = mysqli_query($mysqli, $delete_client);
+
+      if ($run_delete) {
+          $msg = 'Client has been successfully deleted!';
+          $msgClass = 'alert-success';
+      } else {
+          $msg = 'Something went wrong, time to check Stack Overflow!';
+          $msgClass = 'alert-success';
+      }
+  }
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -34,23 +52,32 @@
     <table class="table">
         <thead>
           <tr>
+            <th scope="col">Number</th>
             <th scope="col">Client name</th>
             <th scope="col">Mark as Completed</th>
           </tr>
         </thead>
         <tbody>
+        <?php
+          $i = 0;
+          $get_clients = 'SELECT * FROM clients';
+          $run_clients = mysqli_query($mysqli, $get_clients);
+
+          while ($row_clients = mysqli_fetch_array($run_clients)) {
+              $client_id = $row_clients['id'];
+              $client_name = $row_clients['name'];
+              ++$i; ?>
           <tr>
-            <td>Mark</td>
-            <td><a href="#">Complete</a></td>
+            <td><?php echo $i; ?></td>
+            <td><?php echo $client_name; ?></td>
+            <td><a href="specialist.php?delete_client=<?php echo $client_id; ?>">Complete</a></td>
           </tr>
-          <tr>
-            <td>Jacob</td>
-            <td><a href="#">Complete</a></td>
-          </tr>
+          <?php
+          } ?> 
         </tbody>
       </table>
       <p class="mt-5 mb-3 text-center">
-        <a href="index.html">Go Back</a>
+        <a href="index.php">Go Back</a>
       </p>
   </div>
 </body>
