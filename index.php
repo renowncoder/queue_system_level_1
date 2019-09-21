@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Queue Registration system</title>
+    <title>Queue Registration system | HOME</title>
 
     <!-- Bootstrap core CSS -->
     <link 
@@ -97,7 +97,7 @@
     <footer class="text-muted">
       <div class="container">
         <p>Queue System in PHP and MySQL</p>
-        <p>Visit my <a href="#">github</a></p>
+        <p>Visit my <a href="https://github.com/dimacellist">github</a></p>
       </div>
     </footer>
 

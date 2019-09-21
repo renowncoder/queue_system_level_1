@@ -1,19 +1,20 @@
 <?php
-  include 'connection.php';
+
+include 'config.php';
 
   function getClients()
   {
       global $mysqli;
 
-      $get_clients = 'SELECT * FROM clients ORDER BY 1 ASC LIMIT 0,1';
+      $get_clients = 'SELECT * FROM queue ORDER BY 1 ASC LIMIT 0,1';
       $run_clients = mysqli_query($mysqli, $get_clients);
       while ($row_clients = mysqli_fetch_array($run_clients)) {
-          $client_name = $row_clients['name'];
+          $client_name = $row_clients['client_name'];
           echo "<h1 class='card-title pricing-card-title'>$client_name</h1>";
       }
   }
 
-      $get_clients = 'SELECT * FROM clients';
+      $get_clients = 'SELECT * FROM queue';
       $run_clients = mysqli_query($mysqli, $get_clients);
       $count_clients = mysqli_num_rows($run_clients);
 ?>
@@ -46,14 +47,14 @@
 
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">QUEUE INFORMATION</h1>
-    <p class="lead">It's built with default Bootstrap components and utilities with little customization.</p>
+    <p class="lead">Here you can view total number of clients waiting, including next in line.</p>
   </div>
 
     <div class="container">
       <div class="card-deck mb-3 text-center">
         <div class="card mb-4 box-shadow">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Total Waiting</h4>
+            <h4 class="my-0 font-weight-normal">Total People Waiting:</h4>
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title"><?php echo $count_clients; ?></h1>
@@ -61,7 +62,7 @@
         </div>
         <div class="card mb-4 box-shadow">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Next in Line</h4>
+            <h4 class="my-0 font-weight-normal">Next in Line:</h4>
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title"><?php getClients(); ?></h1>

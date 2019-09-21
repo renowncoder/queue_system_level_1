@@ -1,17 +1,20 @@
 <?php
 
-include 'connection.php';
+include 'config.php';
+ini_set('display_errors', 1);
 
 $msg = '';
 $msgClass = '';
 
 if (isset($_POST['submit'])) {
     $client = $_POST['name'];
-    $insert_client = "INSERT INTO clients (name) VALUES ('$client')";
+    // $insert_visit = "INSERT INTO visits (client_name) VALUES ('$client')";
+    // $run_visit = mysqli_query($mysqli, $insert_visit);
+    $insert_client = "INSERT INTO queue (client_name) VALUES ('$client')";
     $run_client = mysqli_query($mysqli, $insert_client);
 
-    if ($run_client) {
-        $msg = 'Client has been successfully registered!';
+    if ($run_visit) {
+        $msg = 'You have been successfully registered!';
         $msgClass = 'alert-success';
     } else {
         $msg = 'Something went wrong, time to check Stack Overflow!';

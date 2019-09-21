@@ -1,10 +1,10 @@
 <?php
 
-include 'connection.php';
+include 'config.php';
 
   if (isset($_GET['delete_client'])) {
       $delete_client_id = $_GET['delete_client'];
-      $delete_client = "DELETE FROM clients WHERE id='$delete_client_id'";
+      $delete_client = "DELETE FROM queue WHERE id='$delete_client_id'";
       $run_delete = mysqli_query($mysqli, $delete_client);
 
       if ($run_delete) {
@@ -44,8 +44,8 @@ include 'connection.php';
 <body>
 
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">QUEUE INFORMATION</h1>
-    <p class="lead">It's built with default Bootstrap components and utilities with little customization.</p>
+    <h1 class="display-4">SPECIALISTS PAGE</h1>
+    <p class="lead">Here you can view and "complete" client related activity</p>
   </div>
 
   <div class="container">
@@ -60,12 +60,12 @@ include 'connection.php';
         <tbody>
         <?php
           $i = 0;
-          $get_clients = 'SELECT * FROM clients';
-          $run_clients = mysqli_query($mysqli, $get_clients);
+          $get_client = 'SELECT * FROM queue';
+          $run_client = mysqli_query($mysqli, $get_client);
 
-          while ($row_clients = mysqli_fetch_array($run_clients)) {
-              $client_id = $row_clients['id'];
-              $client_name = $row_clients['name'];
+          while ($row_client = mysqli_fetch_array($run_client)) {
+              $client_id = $row_client['id'];
+              $client_name = $row_client['client_name'];
               ++$i; ?>
           <tr>
             <td><?php echo $i; ?></td>
