@@ -56,7 +56,7 @@ include 'partials/register_header.php';
     <?php if ($msg != ''): ?>
       <div class="alert <?php echo $msgClass; ?>"><?php echo $msg; ?></div>
     <?php endif; ?>
-      <form class="form-signin" action="includes/form.inc.php" method="POST">
+      <form class="form-signin" action="" method="POST">
         <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
         <label for="name" class="sr-only">Your Name</label>
         <input 

@@ -12,6 +12,10 @@ Level 1 features:
 - [ ] Specialists Page, where worker can delete visit of particular client
 
 
+**Demo**
+* http://queue-system-level-1-com.stackstaging.com
+
+
 What I have used:
 
 **Bootstrap/Materialize**

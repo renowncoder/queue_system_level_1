@@ -2,7 +2,7 @@
 
 include 'includes/dbh.inc.php';
 include 'includes/Client.inc.php';
-include 'includes/viewclient.inc.php';
+include 'includes/ViewClient.inc.php';
 include 'partials/queue_header.php';
 ?>
 
