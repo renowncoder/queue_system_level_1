@@ -2,10 +2,10 @@
 
 include 'config.php';
 
-  if (isset($_GET['delete_client'])) {
-      $delete_client_id = $_GET['delete_client'];
-      $delete_client = "DELETE FROM queue WHERE id='$delete_client_id'";
-      $run_delete = mysqli_query($mysqli, $delete_client);
+  if (isset($_GET['delete_visit'])) {
+      $delete_visit_id = $_GET['delete_visit'];
+      $delete_visit = "DELETE FROM visits WHERE id='$delete_visit_id'";
+      $run_delete = mysqli_query($mysqli, $delete_visit);
 
       if ($run_delete) {
           $msg = 'Client has been successfully deleted!';
@@ -54,23 +54,27 @@ include 'config.php';
           <tr>
             <th scope="col">Number</th>
             <th scope="col">Client name</th>
+            <th scope="col">Visits Reason</th>
             <th scope="col">Mark as Completed</th>
           </tr>
         </thead>
         <tbody>
         <?php
           $i = 0;
-          $get_client = 'SELECT * FROM queue';
-          $run_client = mysqli_query($mysqli, $get_client);
+          $get_visits = 'SELECT * FROM visits';
+          $run_visits = mysqli_query($mysqli, $get_visits);
 
-          while ($row_client = mysqli_fetch_array($run_client)) {
-              $client_id = $row_client['id'];
-              $client_name = $row_client['client_name'];
+          while ($row_visits = mysqli_fetch_array($run_visits)) {
+              $id = $row_visits['id'];
+              $client_id = $row_visits['client_id'];
+              $client_name = $row_visits['name'];
+              $reason = $row_visits['reason'];
               ++$i; ?>
           <tr>
             <td><?php echo $i; ?></td>
             <td><?php echo $client_name; ?></td>
-            <td><a href="specialist.php?delete_client=<?php echo $client_id; ?>">Complete</a></td>
+            <td><?php echo $reason; ?></td>
+            <td><a href="specialist.php?delete_visit=<?php echo $id; ?>">Complete</a></td>
           </tr>
           <?php
           } ?> 

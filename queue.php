@@ -6,15 +6,15 @@ include 'config.php';
   {
       global $mysqli;
 
-      $get_clients = 'SELECT * FROM queue ORDER BY 1 ASC LIMIT 0,1';
+      $get_clients = 'SELECT * FROM clients ORDER BY 1 ASC LIMIT 0,1';
       $run_clients = mysqli_query($mysqli, $get_clients);
       while ($row_clients = mysqli_fetch_array($run_clients)) {
-          $client_name = $row_clients['client_name'];
+          $client_name = $row_clients['name'];
           echo "<h1 class='card-title pricing-card-title'>$client_name</h1>";
       }
   }
 
-      $get_clients = 'SELECT * FROM queue';
+      $get_clients = 'SELECT * FROM clients';
       $run_clients = mysqli_query($mysqli, $get_clients);
       $count_clients = mysqli_num_rows($run_clients);
 ?>
