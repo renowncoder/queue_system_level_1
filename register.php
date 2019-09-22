@@ -1,7 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-
 $msg = '';
 $msgClass = '';
 
@@ -12,29 +10,37 @@ if (filter_has_var(INPUT_POST, 'submit')) {
     $reason = htmlspecialchars($_POST['reason']);
 
     if (!empty($email) && !empty($name) && !empty($reason)) {
-        //Check email
+        /*
+         * We are checking if user entered valid email address
+         */
         if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
             $msg = 'Please, use valid email address';
             $msgClass = 'alert-danger';
         } else {
-            //Insert Initial Client
+            /*
+             * We are inserting initial client
+             */
             $insert_client = "INSERT INTO clients (name, email) VALUES ('$name', '$email')";
-            $run_client = mysqli_query($mysqli, $insert_client);
-            //Get Last Inserted Client Id
+            $run_client = $mysqli->query($insert_client);
+            /*
+             * We are searching for the last inserted ID
+             */
             $find_last_client_id = 'SELECT last_insert_id()';
-            $run_last_client_id = mysqli_query($mysqli, $find_last_client_id);
+            $run_last_client_id = $mysqli->query($find_last_client_id);
             $get_last_client_id = mysqli_fetch_assoc($run_last_client_id);
             $last_id = implode($get_last_client_id);
-            //Insert into Visits
+            /*
+             * We are searching for the client_id and inserting data into visits table
+             */
             $insert_visit = "INSERT INTO visits (client_id, reason, name) VALUES ('$last_id', '$reason', '$name')";
-            $run_visit = mysqli_query($mysqli, $insert_visit);
+            $run_visit = $mysqli->query($insert_visit);
 
             if ($run_client && $run_visit) {
                 $msg = 'You have been successfully registered!';
                 $msgClass = 'alert-success';
             } else {
                 $msg = 'Something went wrong, time to check Stack Overflow!';
-                $msgClass = 'alert-success';
+                $msgClass = 'alert-danger';
             }
         }
     } else {
@@ -42,47 +48,46 @@ if (filter_has_var(INPUT_POST, 'submit')) {
         $msgClass = 'alert-danger';
     }
 }
+
+include 'partials/register_header.php';
 ?>
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Queue Registration system | Register</title>
-
-    <!-- Bootstrap core CSS -->
-    <link 
-      rel="stylesheet" 
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
-    >
-    <link 
-      rel="stylesheet" 
-      href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" 
-      integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" 
-      crossorigin="anonymous"
-    >
-
-    <!-- Custom styles for this website -->
-    <link href="css/client.css" rel="stylesheet">
-  </head>
-
-  <body class="text-center">
-    <div class="container">
+<body class="text-center">
+  <div class="container">
     <?php if ($msg != ''): ?>
       <div class="alert <?php echo $msgClass; ?>"><?php echo $msg; ?></div>
     <?php endif; ?>
-      <form class="form-signin" action="" method="POST">
+      <form class="form-signin" action="includes/form.inc.php" method="POST">
         <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
         <label for="name" class="sr-only">Your Name</label>
-        <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required autofocus><br>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          class="form-control" 
+          placeholder="Your Name" 
+          required autofocus
+          value=<?php echo isset($_POST['name']) ? $name : ''; ?>
+        ><br>
         <label for="email" class="sr-only">Your Email</label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required autofocus><br>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          class="form-control" 
+          placeholder="Your Email" 
+          required autofocus
+          value=<?php echo isset($_POST['email']) ? $email : ''; ?>
+        ><br>
         <label for="reason" class="sr-only">Your Visits Reason</label>
-        <input type="reason" id="reason" name="reason" class="form-control" placeholder="Your Visits Reason" required autofocus><br>
+        <input 
+          type="reason" 
+          id="reason" 
+          name="reason" 
+          class="form-control" 
+          placeholder="Your Visits Reason" 
+          required autofocus
+          value=<?php echo isset($_POST['reason']) ? $reason : ''; ?>
+        ><br>
         <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Register</button>
       </form>
       <p class="mt-5 mb-3 text-muted">

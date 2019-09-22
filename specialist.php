@@ -5,7 +5,7 @@ include 'config.php';
   if (isset($_GET['delete_visit'])) {
       $delete_visit_id = $_GET['delete_visit'];
       $delete_visit = "DELETE FROM visits WHERE id='$delete_visit_id'";
-      $run_delete = mysqli_query($mysqli, $delete_visit);
+      $run_delete = $mysqli->query($delete_visit);
 
       if ($run_delete) {
           $msg = 'Client has been successfully deleted!';
@@ -15,32 +15,9 @@ include 'config.php';
           $msgClass = 'alert-success';
       }
   }
+
+include 'partials/specialist_header.php';
 ?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Queue Registration system | Specialist</title>
-
-    <!-- Bootstrap core CSS -->
-    <link 
-      rel="stylesheet" 
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
-    >
-    <link 
-      rel="stylesheet" 
-      href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" 
-      integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" 
-      crossorigin="anonymous"
-    >
-
-    <!-- Custom styles for this website -->
-    <link href="css/queue.css" rel="stylesheet">
-  </head>
 <body>
 
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -62,9 +39,9 @@ include 'config.php';
         <?php
           $i = 0;
           $get_visits = 'SELECT * FROM visits';
-          $run_visits = mysqli_query($mysqli, $get_visits);
+          $run_visits = $mysqli->query($get_visits);
 
-          while ($row_visits = mysqli_fetch_array($run_visits)) {
+          while ($row_visits = $run_visits->fetch_assoc()) {
               $id = $row_visits['id'];
               $client_id = $row_visits['client_id'];
               $client_name = $row_visits['name'];

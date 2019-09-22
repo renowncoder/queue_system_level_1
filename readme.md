@@ -25,6 +25,6 @@ What I have used:
 
 
 **README file**
-* https://medium.com/
+* https://github.com/dimacellist/queue_system_level_1/readme.md
 
 ===============================
