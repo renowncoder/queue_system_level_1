@@ -1,48 +1,11 @@
 <?php
 
-include 'config.php';
-
-  function getClients()
-  {
-      global $mysqli;
-
-      $get_clients = 'SELECT * FROM clients ORDER BY 1 ASC LIMIT 0,1';
-      $run_clients = mysqli_query($mysqli, $get_clients);
-      while ($row_clients = mysqli_fetch_array($run_clients)) {
-          $client_name = $row_clients['name'];
-          echo "<h1 class='card-title pricing-card-title'>$client_name</h1>";
-      }
-  }
-
-      $get_clients = 'SELECT * FROM clients';
-      $run_clients = mysqli_query($mysqli, $get_clients);
-      $count_clients = mysqli_num_rows($run_clients);
+include 'includes/dbh.inc.php';
+include 'includes/Client.inc.php';
+include 'includes/viewclient.inc.php';
+include 'partials/queue_header.php';
 ?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>Queue Registration system | Queue</title>
-
-    <!-- Bootstrap core CSS -->
-    <link 
-      rel="stylesheet" 
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
-    >
-    <link 
-      rel="stylesheet" 
-      href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" 
-      integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" 
-      crossorigin="anonymous"
-    >
-
-    <!-- Custom styles for this website -->
-    <link href="css/queue.css" rel="stylesheet">
-  </head>
 <body>
 
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -57,7 +20,12 @@ include 'config.php';
             <h4 class="my-0 font-weight-normal">Total People Waiting:</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title"><?php echo $count_clients; ?></h1>
+            <h1 class="card-title pricing-card-title">
+              <?php
+                $user_count = new ViewClient();
+                $user_count->showAllClientCount();
+              ?>
+            </h1>
           </div>
         </div>
         <div class="card mb-4 box-shadow">
@@ -65,7 +33,12 @@ include 'config.php';
             <h4 class="my-0 font-weight-normal">Next in Line:</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title"><?php getClients(); ?></h1>
+            <h1 class="card-title pricing-card-title">
+              <?php
+                $users = new ViewClient();
+                $users->showAllClients();
+              ?>
+            </h1>
           </div>
         </div>
       </div>
