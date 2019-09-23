@@ -32,7 +32,7 @@ if (filter_has_var(INPUT_POST, 'submit')) {
             /*
              * We are searching for the client_id and inserting data into visits table
              */
-            $insert_visit = "INSERT INTO visits (client_id, reason, name) VALUES ('$last_id', '$reason', '$name')";
+            $insert_visit = "INSERT INTO visits (client_id, reason) VALUES ('$last_id', '$reason')";
             $run_visit = $mysqli->query($insert_visit);
 
             if ($run_client && $run_visit) {
@@ -65,7 +65,7 @@ include 'partials/register_header.php';
           name="name" 
           class="form-control" 
           placeholder="Your Name" 
-          required autofocus
+          autofocus
           value=<?php echo isset($_POST['name']) ? $name : ''; ?>
         ><br>
         <label for="email" class="sr-only">Your Email</label>
@@ -75,7 +75,7 @@ include 'partials/register_header.php';
           name="email" 
           class="form-control" 
           placeholder="Your Email" 
-          required autofocus
+          autofocus
           value=<?php echo isset($_POST['email']) ? $email : ''; ?>
         ><br>
         <label for="reason" class="sr-only">Your Visits Reason</label>
@@ -85,7 +85,7 @@ include 'partials/register_header.php';
           name="reason" 
           class="form-control" 
           placeholder="Your Visits Reason" 
-          required autofocus
+          autofocus
           value=<?php echo isset($_POST['reason']) ? $reason : ''; ?>
         ><br>
         <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Register</button>
